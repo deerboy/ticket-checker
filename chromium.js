@@ -10,7 +10,6 @@ async function getItemCount () {
 
   const page = await browser.newPage()
 
-
   await page.goto(`https://tiketore.com/events/artist/11114`)
   const itemElements = await page.$$('#tickets .list-ticket')
   await browser.close()
