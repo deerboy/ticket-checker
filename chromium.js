@@ -1,7 +1,7 @@
 const chrome = require('chrome-aws-lambda')
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
 
-async function getTitle (author) {
+async function getItemCount () {
   const browser = await puppeteer.launch({
     args: chrome.args,
     executablePath: await chrome.executablePath,
@@ -10,20 +10,11 @@ async function getTitle (author) {
 
   const page = await browser.newPage()
 
-  await page.goto(`https://nhentai.net/artist/${author}`)
-  const titleElement = await page.$('.gallery[data-tags*="6346"] .caption')
-  const linkElement = await page.$('.gallery[data-tags*="6346"] a')
-  const imageElement = await page.$('.gallery[data-tags*="6346"] img')
-  const result = await page.evaluate((titleElm, linkElm, imageElm) => {
-    return {
-      title: titleElm.textContent,
-      link: 'https://nhentai.net' + linkElm.getAttribute('href'),
-      image: imageElm.getAttribute('src')
-    }
-  }, titleElement, linkElement, imageElement)
 
+  await page.goto(`https://tiketore.com/events/artist/11114`)
+  const itemElements = await page.$$('#tickets .list-ticket')
   await browser.close()
-  return JSON.stringify(result)
+  return itemElements.length.toString()
 }
 
-module.exports = { getTitle }
+module.exports = { getItemCount }

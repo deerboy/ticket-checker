@@ -1,7 +1,7 @@
 {
-  "name": "echecker",
+  "name": "ticket-checker",
   "version": "1.0.0",
-  "description": "check ebooks",
+  "description": "ticket-checker",
   "private": true,
   "license": "MIT",
   "dependencies": {
